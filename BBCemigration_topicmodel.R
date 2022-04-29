@@ -26,12 +26,12 @@ inspect(BBCcorpus[1:3])
 
 BBCcorpusCopy <- BBCcorpus
 
-BBCcorpus_clean = tm_map(BBCcorpus, tolower) # converts all text to lower case
-BBCcorpus_clean = tm_map(BBCcorpus_clean, removePunctuation) #removes punctuation
-BBCcorpus_clean = tm_map(BBCcorpus_clean, removeWords, stopwords()) #removes common words like “a”, “the” etc
-BBCcorpus_clean = tm_map(BBCcorpus_clean, stemDocument, language = "english") # removes the last few letters of similar words such as get, getting, gets
+BBCcorpus_clean = tm_map(BBCcorpus, tolower) # convert to lower case
+BBCcorpus_clean = tm_map(BBCcorpus_clean, removePunctuation) #remove punctuation
+BBCcorpus_clean = tm_map(BBCcorpus_clean, removeWords, stopwords()) #remove stop words like “to", or "a"
+BBCcorpus_clean = tm_map(BBCcorpus_clean, stemDocument, language = "english") # remove word stems e.g. type, typing
 BBCcorpus_clean <- tm_map(BBCcorpus_clean, content_transformer(stemCompletion), dictionary = BBCcorpusCopy, lazy=TRUE)
-BBCcorpus_clean = tm_map(BBCcorpus_clean, stripWhitespace) #Strip extra whitespace from a text document. Multiple whitespace characters are collapsed to a single blank.
+BBCcorpus_clean = tm_map(BBCcorpus_clean, stripWhitespace) #Collapse whitespace into a single blank.
 
 inspect(BBCcorpus_clean[1])
 
