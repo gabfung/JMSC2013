@@ -30,7 +30,7 @@ BBCcorpus_clean = tm_map(BBCcorpus, tolower) # convert to lower case
 BBCcorpus_clean = tm_map(BBCcorpus_clean, removePunctuation) #remove punctuation
 BBCcorpus_clean = tm_map(BBCcorpus_clean, removeWords, stopwords()) #remove stop words like “to", or "a"
 BBCcorpus_clean = tm_map(BBCcorpus_clean, stemDocument, language = "english") # extract word lemmas e.g. type, typing
-BBCcorpus_clean <- tm_map(BBCcorpus_clean, content_transformer(stemCompletion), dictionary = BBCcorpusCopy, lazy=TRUE)
+BBCcorpus_clean = tm_map(BBCcorpus_clean, content_transformer(stemCompletion), dictionary = BBCcorpusCopy, lazy=TRUE)
 BBCcorpus_clean = tm_map(BBCcorpus_clean, stripWhitespace) #Collapse whitespace into a single blank.
 
 inspect(BBCcorpus_clean[1])
