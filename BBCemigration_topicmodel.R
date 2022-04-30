@@ -19,7 +19,7 @@ Corpusexcel$article_text_new <- str_replace_all(Corpusexcel$article_text_new, "K
 
 Corpusexcel$article_text_new
 
-BBCcorpus <- Corpus(VectorSource(Corpusexcel$article_text_new))
+BBCcorpus <- Corpus(VectorSource(Corpusexcel$article_text_new)) #create corpus file
 
 print(BBCcorpus)
 inspect(BBCcorpus[1:3])
@@ -29,15 +29,13 @@ BBCcorpusCopy <- BBCcorpus
 BBCcorpus_clean = tm_map(BBCcorpus, tolower) # convert to lower case
 BBCcorpus_clean = tm_map(BBCcorpus_clean, removePunctuation) #remove punctuation
 BBCcorpus_clean = tm_map(BBCcorpus_clean, removeWords, stopwords()) #remove stop words like “to", or "a"
-BBCcorpus_clean = tm_map(BBCcorpus_clean, stemDocument, language = "english") # remove word stems e.g. type, typing
+BBCcorpus_clean = tm_map(BBCcorpus_clean, stemDocument, language = "english") # extract word lemmas e.g. type, typing
 BBCcorpus_clean <- tm_map(BBCcorpus_clean, content_transformer(stemCompletion), dictionary = BBCcorpusCopy, lazy=TRUE)
 BBCcorpus_clean = tm_map(BBCcorpus_clean, stripWhitespace) #Collapse whitespace into a single blank.
 
 inspect(BBCcorpus_clean[1])
 
 BBCdtm = DocumentTermMatrix(BBCcorpus_clean) #turns the corpus into a document term matrix
-
-inspect(BBCdtm99)
 
 ####Topic modeling ====
 BBCdtm_topic_model <- LDA(BBCdtm, k=5, control = list(seed =321))
@@ -69,7 +67,7 @@ final_topic_model <- BBC_top_terms %>%
   coord_flip()
   )
 
-ggsave(filename = "BBCemigration topic model.png",
+ggsave(filename = "BBCemigration topic model 2.png",
        final_topic_model, dpi=300)
 
 ####Ranking top words ====
